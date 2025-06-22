@@ -1,5 +1,25 @@
-### IntelliJ IDEA ###
-out/
+### Environment ###
+.env
+.env.*
+!.env.example
+
+### Credentials ###
+**/config/credentials.properties
+**/config/*.env
+**/config/*.secret
+
+### IDE ###
+.idea/
+*.iml
+*.iws
+*.ipr
+
+### Build ###
+/target/
+/target/**
+/build/
+/build/**
+/out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
@@ -8,7 +28,7 @@ out/
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
 .sts4-cache
 bin/
@@ -25,5 +45,6 @@ bin/
 ### VS Code ###
 .vscode/
 
-### Mac OS ###
+### System Files ###
 .DS_Store
+Thumbs.db

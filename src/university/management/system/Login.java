@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import university.management.system.util.EnvConfig;
 
 public class Login extends JFrame implements ActionListener {
     JTextField textFieldName;
@@ -67,40 +68,27 @@ public class Login extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == login) {
-            String username = textFieldName.getText();
+            String username = textFieldName.getText().trim();
             String password = new String(passwordField.getPassword());
             
-            // Temporary login check (remove this when database is connected)
-            if (username.equals("admin") && password.equals("admin123")) {
-                JOptionPane.showMessageDialog(this, "Login successful!");
-                // TODO: Uncomment and implement database connection later
-                /*
-                try {
-                    String query = "select * from login where username=? and password=?";
-                    Conn c = new Conn();
-                    PreparedStatement stmt = c.connection.prepareStatement(query);
-                    stmt.setString(1, username);
-                    stmt.setString(2, password);
-                    ResultSet resultSet = stmt.executeQuery();
-                    
-                    if (resultSet.next()) {
-                        setVisible(false);
-                        new main_class();
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Invalid username or password");
-                    }
-                    
-                    resultSet.close();
-                    stmt.close();
-                    c.connection.close();
-                    
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
-                    ex.printStackTrace();
+            try {
+                if (EnvConfig.isValidUser(username, password)) {
+                    JOptionPane.showMessageDialog(this, "Login successful!");
+                    // TODO: Add role-based redirection if needed
+                    // setVisible(false);
+                    // new MainClass();
+                } else {
+                    JOptionPane.showMessageDialog(this, 
+                        "Invalid username or password", 
+                        "Login Failed", 
+                        JOptionPane.ERROR_MESSAGE);
                 }
-                */
-            } else {
-                JOptionPane.showMessageDialog(this, "Use 'admin' / 'admin123' for testing");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, 
+                    "Error during authentication: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
             }
         } else if (e.getSource() == back) {
             // Go back to previous screen or close
