@@ -133,8 +133,7 @@ public class Splash extends JFrame implements Runnable {
             // Loading complete
             Thread.sleep(300);
             dispose();
-            // TODO: Uncomment when Login class is available
-            // new Login();
+            new Login();
             System.out.println("Splash screen completed. Login screen would open here.");
             
         } catch (Exception e) {
